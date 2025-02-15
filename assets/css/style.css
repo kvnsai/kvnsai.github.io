@@ -829,6 +829,34 @@ main {
   line-height: 1.6;
 }
 
+.timeline-company { position: relative; }
+
+
+.timeline-company::before {
+  content: "";
+  position: absolute;
+  top: -25px;
+  left: -40px;
+  width: 1px;
+  height: calc(100% + 50px);
+  background: var(--jet);
+}
+
+/* Add a subtle underline or border */
+.timeline-company::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--vegas-gold);
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+/
+
+
+
 
 /**
  * skills 
