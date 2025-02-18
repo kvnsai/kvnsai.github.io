@@ -12,7 +12,7 @@ fi
 # Git commands to add, commit, and push all modified posts
 git add .
 git commit -m "Publishing new and modified posts: $new_posts"
-# git push origin main
+git push origin main
 
 echo "Successfully published the following posts: "
 echo "$new_posts"
