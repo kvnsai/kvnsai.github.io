@@ -4,6 +4,8 @@ title: "Creating blog posts using Jekyll"
 date: 2025-02-18
 categories: jekyll update
 ---
+* TOC
+{:toc}
 
 # Setting Up the Website on GitHub
 #### Create a GitHub Repository for Your Website
