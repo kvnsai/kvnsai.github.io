@@ -183,7 +183,7 @@ navigationLinks.forEach((navLink) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/blog/index.html") // Fetch blog page
+  fetch("/blog.html") // Fetch blog page
     .then((response) => response.text())
     .then((html) => {
       const parser = new DOMParser();
