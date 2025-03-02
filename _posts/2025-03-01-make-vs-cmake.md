@@ -2,7 +2,7 @@
 layout: post
 title: make-vs-cmake
 date: 2025-03-01
-categories: "Change as needed"
+categories: ""
 ---
 
 * TOC

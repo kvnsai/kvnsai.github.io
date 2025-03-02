@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Understanding Linux Namespaces: Isolating Processes and Resources"
-date: 2025-02-19
-categories: "Linux, Containerization"
+title: "Understanding Linux Namespaces"
+date: 2025-Feb-19
+categories: "Linux Containerization"
 author: Niranjan Sai
 ---
 

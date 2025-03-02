@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Understanding chroot: Isolating Environments in Linux"
+title: "Understanding CHROOT: Isolating Environments in Linux"
 date: 2018-02-18
-categories: linux security chroot
+categories: linux security 
 ---
+
 * TOC
 {:toc}
 

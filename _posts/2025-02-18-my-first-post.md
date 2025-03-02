@@ -2,7 +2,7 @@
 layout: post
 title: "Creating blog posts using Jekyll"
 date: 2025-02-18
-categories: jekyll update
+categories: github jekyll
 ---
 * TOC
 {:toc}
