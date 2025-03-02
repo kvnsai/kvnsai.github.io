@@ -67,6 +67,7 @@
   --vegas-gold: hsl(45, 54%, 58%);
   --light-gray: hsl(0, 0%, 84%);
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
+  --light-gray-35: hsla(0, 0%, 84%, 0.35);
   --bittersweet-shimmer: hsl(0, 43%, 51%);
 
   /**
@@ -787,7 +788,8 @@ main {
 
 .timeline-company { position: relative; }
 
-.timeline-company::before {
+
+/* .timeline-company::before {
   content: "";
   position: absolute;
   top: -25px;
@@ -795,7 +797,7 @@ main {
   width: 1px;
   height: calc(100% + 50px);
   background: var(--jet);
-}
+} */
 /* Add a subtle underline or border */
 .timeline-company::after {
   content: "";
@@ -823,7 +825,7 @@ main {
   line-height: 1.6;
 }
 
-.timeline-item:not(:last-child)::before {
+/* .timeline-item:not(:last-child)::before {
   content: "";
   position: absolute;
   top: -25px;
@@ -832,7 +834,7 @@ main {
   width: 1px;
   height: calc(100% + 50px);
   background: var(--jet);
-}
+} */
 
 .timeline-item::after {
   content: "";
@@ -1122,6 +1124,12 @@ main {
   border-radius: 4px;
 }
 
+.blog-meta .arrow {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 5px;
+  color: var(--light-gray-35); /* A nice blue color */
+}
 .blog-item-title {
   margin-bottom: 10px;
   line-height: 1.3;

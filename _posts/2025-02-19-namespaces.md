@@ -203,69 +203,127 @@ The **user namespace** enables privilege isolation by allowing processes to have
 
 The **user namespace** provide isolation for *user IDs (UIDs)* and *group IDs (GIDs)*, allowing containers to have their own set of users and groups that are independent of the host system. This isolation enables processes inside containers to run with *non-privileged* user IDs, even if the host system assigns those users higher privileges.
 
+You can use `unshare` command with `user` option to create a new ususerer namespace:
+```sh
+sudo unshare --user --map-root-user --bash
+id
+# Output: uid=0(root) gid=0(root) groups=0(root)
+
+touch /root/test
+# Output: touch: cannot touch '/root/test': Permission denied
+```
+`map-root-user` options maps current user as root inside the namespace. Even though user running as root (UID=0 inside the namespace), it doesn't grant root privileges on the host.
+
+### Fakeroot
+The `--fakeroot` option in unshare allows a user to simulate root privileges inside a new user namespace, without requiring real root access on the host. This is useful for package building, testing, and sandboxing applications securely.
+
+How `--fakeroot` Works
+
+```sh
+unshare --user --map-root-user --fakeroot bash
+id
+# Output: uid=0(root) gid=0(root) groups=0(root)
+```
+Even though the user appears as `root`, actual system changes (like modifying /etc/passwd) will be restricted. This is generally used while building packages without root access (e.g., `dpkg`, `rpm` packaging), sandboxing and testing applications as root securely
+
 In practical terms, user namespaces allow containers to run as root inside the container but with limited privileges on the host system. This improves security by reducing the risk of privilege escalation attacks.
-
-To implement user namespaces, Docker uses the `--userns` flag, where containers can run with their own UID/GID mappings:
-
-**Use Case:**
-- Running unprivileged containers with root access inside the namespace while remaining a non-root user on the host.
-- Secure privilege separation for different applications.
 
 ---
 
 ## 5. Mount Namespace (mnt)
-The **mount namespace** isolates the mount points seen by processes in different namespaces. This means each namespace can have a different filesystem layout.
 
-**Use Case:**
-- Containers can have their own root filesystem separate from the host.
-- Chroot-like environments but with better isolation.
+The **mount namespace** isolates the filesystem view for a process, enabling it to have its own separate set of mounts. This allows containers or processes to have different filesystems without affecting the host system.
+
+You can create a new mount namespace and mount a temporary filesystem inside it:
+```sh
+sudo unshare --mount --fork --pid /bin/bash
+mount -t tmpfs tmpfs /mnt
+df -T /mnt
+# Output
+Filesystem     Type  1K-blocks  Used Available Use% Mounted on
+tmpfs          tmpfs   7795544     0   7795544   0% /mnt
+```
+`tmpfs` is a temporary filesystem that resides in RAM. Unlike disk-based filesystems, it does not persist data after exit or reboot.It is assigned the default size for tmpfs, which is usually half of total RAM. Size can be explicitly set using `-o size=<required-size>`.
+
+`chroot` allows a process to run with a different root directory (`/`), restricting its view of the filesystem. However, chroot is not a security feature; a root user inside chroot can still escape under certain conditions (e.g., mounting `/proc` and modifying `/proc/self/root`).
 
 ---
 
 ## 6. Interprocess Communication Namespace (IPC)
-The **IPC (Inter-Process Communication) namespace** allows isolation of System V IPC objects and POSIX message queues between different process groups.
+The `IPC (Interprocess Communication) namespace` isolates communication mechanisms like shared memory segments, message queues, and semaphores between processes. This allows containers or processes to have their own independent IPC resources, preventing interference between applications running on the same host.
 
-**Use Case:**
-- Prevents processes inside a container from accessing shared memory segments or message queues from the host.
-- Ensures better isolation for applications requiring shared memory.
+On a typical Linux system, processes can communicate through `System V IPC` (e.g., shared memory, message queues, semaphores) and POSIX IPC (e.g., shared memory objects, named semaphores). Without isolation, multiple processes could access and modify these IPC resources, leading to security risks and unintended interactions.
 
----
+Using IPC namespaces, processes inside a container (or namespace) only see and communicate with IPC resources within that namespace, ensuring process-level isolation.
 
-## 7. Cgroups
-The **cgroup namespace** provides isolation of control groups (cgroups), ensuring that processes in one namespace cannot see or modify the resource limits of processes in another.
+To create a new IPC namespace, use the `unshare` command with `ipc`. 
 
-**Use Case:**
-- Ensuring that resource limits (CPU, memory, I/O) applied to containers remain private.
-- Enhancing security by restricting process visibility across different containers.
+```sh
+sudo unshare --ipc /bin/bash
 
----
+ipcmk -Q ## Create a message queue inside namespace
+Message queue id: 0
 
-Using `unshare` to create namespaces:
+ipcs -q  # List message queues
+# Output from inside the namespace session
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+0xf3fa25d0 0          root       644        0            0           
 
-To create a new lightweight container namespace and verify it:
-```bash
-# Forks a new process to avoid reusing the parent namespace.
-# Starts a new shell 
-unshare --pid --net --uts --user --map-root-user --mount --ipc --cgroup --fork bash
 
-echo $$
+# Output from other terminal 
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+0x000003e9 0          nsai       600        2002         2  
 
-ip a
-ip link set lo up
-
-hostname
-hostname new-container
-
-id 
-
-mount
-mount --bind /home /mnt
-
-ipcs -m
-
-cat /proc/self/cgroup
+ipcs -m  # List shared memory segments
+ipcs -s  # List semaphores
 ```
-Inside the namespace, the shell process will have PID 1, as it is now the root of the process tree.
+To verify the isolation using `ipcs` you can list message queues, sophomores and shared memory segments. Inside the IPC nanespace, there will be none unless created using `ipcmk` or any other. On the other terminal you can see the ones that are running on the host.   
+
+This isolation strengthens container security and prevents unintended process interactions.
+
+--- 
+
+## 7. Cgroup Namespace
+Cgroup namespaces are a type of namespace in Linux that isolate and manage resource limits for groups of processes. Unlike other namespaces, which focus on system isolation (like network or process isolation), cgroup namespaces specifically focus on resource management. This makes them essential in environments like containers, where resource allocation and limits need to be tightly controlled to ensure that workloads do not interfere with each other.
+
+**How Cgroup Namespaces Work**
+
+Cgroup namespaces enable a process to have its own separate view of the cgroup file system (typically mounted at /sys/fs/cgroup/). Each cgroup namespace is an independent tree structure for resource allocation and tracking.
+
+A cgroup is essentially a kernel feature that allows the aggregation of processes into hierarchical groups to manage and limit resources like CPU, memory, and disk I/O. The idea is to allow users to limit and prioritize the resources available to specific groups of processes. When a process is placed in a cgroup, it is subject to the resource limits defined for that cgroup.
+
+Within a cgroup namespace, processes can have different views of the resource limits. For example, a process in a container might see itself as being in a cgroup that allows only a small portion of CPU time, while the host system or other containers can have different limits.
+
+In a system without cgroup namespaces, all processes share the same cgroup hierarchy, and there is no isolation between them in terms of resource usage. However, with cgroup namespaces, processes in one namespace cannot see or affect the cgroups or resource limits of processes in another namespace. This provides both isolation and control over how resources are distributed among different workloads.
+
+**Key Features of Cgroup Namespaces**
+- Resource Isolation
+- Support for Containers
+- Performance Tuning
+
+To work with cgroup namespaces on a Linux system, the following commands can be useful:
+
+- `lsns`: Lists all active namespaces on the system, including cgroup namespaces.
+- `ps -eo pid,ns,pidns,cgns`: Displays processes along with their namespace IDs, including cgroup namespace IDs.
+- `mount | grep cgroup`: Shows the mounted cgroup filesystems and can help in inspecting cgroup namespaces.
+
+You can create and manipulate cgroup namespaces using tools like `unshare` or through direct system calls such as `setns`. These commands allow you to create new namespaces, manage resources, and isolate processes in a more controlled way.
+
+In this blog, we’ve provided a high-level overview of what cgroup namespaces are, how they function, and their significance. However, cgroup namespaces deserve their own dedicated post to fully explore the various options, configurations, and use cases. This includes topics such as resource quotas, cgroup controllers, advanced performance tuning, and their integration into container runtimes.
+
+---
+
+## Using unshare to Create a Lightweight Container Namespace
+
+To create a complete, isolated container-like environment, multiple namespaces are used in conjunction. The `unshare` command can be utilized to start a process that has its own isolated resources by combining several namespace options in one command. This allows processes to run in a fully isolated environment, much like how containers operate in production.
+
+The combined command below will start a container-like environment with its own pid, network, uts, mount, ipc, cgroup and user namespaces with current user mapped as root inside, alog with forking to a  new process to ensure parent process does not share same namespacess:
+
+```bash
+unshare --pid --net --uts --user --map-root-user --mount --ipc --cgroup --fork bash
+```
 
 
 ## Conclusion

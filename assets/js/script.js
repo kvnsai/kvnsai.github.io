@@ -214,12 +214,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         listItem.innerHTML = `
           <a href="${post.href}" class="blog-link">
+            
+            <h3 class="h3 blog-item-title">${post.textContent}</h3>
             <div class="blog-meta">
+              <span class="arrow">||</span> 
               <time datetime="${year}-${month}-${day}">${day} ${month}, ${year}</time>
               <span class="dot"></span>
               <p class="blog-category">${categories.join(" / ")}</p>
             </div>
-            <h3 class="h3 blog-item-title">${post.textContent}</h3>
           </a>
         `;
         blogList.appendChild(listItem);
