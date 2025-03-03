@@ -168,9 +168,9 @@
           </li>
 
 
-          <!-- <li class="navbar-item">
+          <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Resume</button>
-          </li> -->
+          </li>
 
           <!-- <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Portfolio</button>
@@ -454,10 +454,10 @@
       
       
       <!--        - #RESUME      -->      
-      <article class="resume" data-page="career">
+      <article class="resume" id="resume" data-page="resume">
        
         <header>
-          <h2 class="h2 article-title">Career</h2>
+          <h2 class="h2 article-title">Resume</h2>
         </header>
         
 
@@ -480,63 +480,71 @@
             <li class="timeline-item">
                 <h4 class="h4 timeline-item-title">Junior HPC Platform Engineer</h4>
                 <span>Jan 2025 — Present</span>
-                <p class="timeline-text">
-                    <strong>Level:</strong> Internship  
-                </p>
-                <p class="timeline-text">
-                  <strong>Responsibilities / Skills:</strong> Platform Engineer, Software Developer  
-              </p>
+                <ul class="timeline-text">
+                  <li>&bull; Developed Ansible playbooks for deploying an HPC cluster with OpenHPC and SLURM, automating system provisioning. </li>
+                  <li>&bull; Installed and configured scientific computing software, created environment modules, and assisted researchers in ensuring their code runs optimally on the cluster.</li>
+                  <li>&bull; Packaged and deployed scientific software by building RPMs, maintaining a local repository, and created Singularity definition files to provide standalone and containerized environments for researchers' computational testing needs.</li>
+                  <li>&bull; Developed custom monitoring dashboards using Python to collect metrics and visualise using Grafana and implemented XDMoD for system-wide analytics.</li>
+                  <li>&bull; Assisted in planning and managing HPC projects , ensuring smooth operations during  deployments, upgrades, and user onboarding.</li>
+                  <li>&bull; Designed and implemented incident response playbooks to improve HPC security, reliability, and troubleshooting efficiency.</li>
+                </ul>
+                
             </li>    
-            <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">Student Linux Engineer</h4>
-                <span>Jun 2024 — Dec 2024</span>
-                <p class="timeline-text">
-                    <strong>Level:</strong> Part-time  
-                </p>
-                <p class="timeline-text">
-                  <strong>Responsibilities / Skills:</strong> System Admin, 
-              </p>
-             
-              
-            </li>
-
+          
             <li class="timeline-company">
               <p class="h3">Satish Dhawan Space Center (ISRO)</p> 
             </li>
             <li class="timeline-item">
         
-                <h4 class="h4 timeline-item-title">Scientist-SD</h4>
-                <span>Jun 2023 — Dec 2023</span>
-                <p class="timeline-text">
-                    <strong>Level:</strong> Mid-level  
-                </p>
-                <p class="timeline-text">
-                    <strong>Responsibilities / Skills:</strong> Cybersecurity Audit, SOC Analyst, IT Architect, Software Developer  
-                </p>
+                <h4 class="h2 timeline-item-title">IT Infrastructure & Security Engineer</h3>
+                <span>Aug 2019 — Dec 2023</span>
+                <ul class="timeline-text">
+                  <li><strong>Cybersecurity:</strong>
+                      <ul>
+                          <li>&bull; Implemented robust cybersecurity measures, including planning and configuring firewalls and VPNs.</li>
+                          <li>&bull; Performed vulnerability scanning for deployed applications and implemented security patches accordingly.</li>
+                          <li>&bull; Implemented SIEM and central log servers for comprehensive security operations and reporting incidents.</li>
+                      </ul>
+                  </li>
+                  <li><strong>IT Infrastructure:</strong>
+                      <ul>
+                          <li>&bull; Virtualized servers using VMWare for improved efficiency and resource management and implemented remote desktop services and applications using Citrix, utilizing 75 physical servers hosting around 500 VMs.</li>
+                          <li>&bull; Managed and deployed SAN and NAS Servers for efficient storage solutions with a capacity of 1PB over ten devices.</li>
+                          <li>&bull; Planned and inspected backup and archival procedures for critical data.</li>
+                          <li>&bull; Implemented a high-performance computing cluster that can deliver over 100 TFlops.</li>
+                          <li>&bull; Installed software for meteorological and mechanical simulations.</li>
+                          <li>&bull; Managed and administered Active Directory, DNS Servers, and Mail Servers.</li>
+                          <li>&bull; Deployed collaboration servers such as Cisco Meeting Server, Nextcloud, and Matrix, used by nearly 5000 people.</li>
+                          <li>&bull; Administered Linux and Windows servers and automated IT administration activities using shell scripting, Python, and Ansible.</li>
+                      </ul>
+                  </li>
+                  <li><strong>Indian Space Programme:</strong>
+                      <ul>
+                          <li>&bull; Configured and deployed switches and routers, implementing connectivity over 56 sq. mi.</li>
+                          <li>&bull; Involved in IT and network operations to ensure the reliable functioning of IT infrastructure.</li>
+                          <li>&bull; Managed servers, networking devices, consoles, and workstations used in control centers during rocket launches and satellite preparation.</li>
+                      </ul>
+                  </li>
+              </ul>
+s              
             </li>    
-            <li class="timeline-item">  
-                <h4 class="h4 timeline-item-title">Scientist-SC</h4>
-                <span>Aug 2019 — May 2023</span>
-                <p class="timeline-text">
-                    <strong>Level:</strong> Entry-level  
-                </p>
-                <p class="timeline-text">
-                    <strong>Responsibilities / Skills:</strong> Platform Engineer, Observability Engineer, Network Engineer, Automation, System Admin  
-                </p>
-            </li>
-
+            
             <li class="timeline-company">
               <p class="h3">Vikram Sarabhai Space Center (ISRO)</p>
             </li>
             <li class="timeline-item">
                 <h4 class="h4 timeline-item-title">Research Intern</h4>
                 <span>Aug 2019 — May 2023</span>
-                <p class="timeline-text">
-                    <strong>Level:</strong> Internship  
-                </p>
-                <p class="timeline-text">
-                    <strong>Responsibilities / Skills:</strong> Malware Detection, Traffic Analysis & Network Security, API Analysis & Feature Engineering
-                </p>
+                <ul class="timeline-text">
+                  <li>
+                      Developed a comprehensive API call log dataset and introduced an API Call Transition Matrix (API-CTM) for feature extraction, achieving 96% accuracy in malware detection. 
+                      <a href="https://ieeexplore.ieee.org/document/8929250" target="_blank" style="color: rgb(101, 183, 238);">[Relevant publication]</a>
+                  </li>
+                  <li>
+                      Utilized traffic analysis of HTTP TCP headers to engineer an N-gram based detection technique, achieving 99.5% accuracy in identifying botnet traffic and 98.9% accuracy in detecting unauthorized operating systems through OS fingerprinting.
+                  </li>
+              </ul>
+              
             </li>
         
         </ol>
@@ -544,7 +552,7 @@
         </section>
 
         <!-- Education -->   
-        <section class="timeline">
+        <!-- <section class="timeline">
 
           <div class="title-wrapper">
             <div class="icon-box">
@@ -577,67 +585,19 @@
 
           </ol>
 
-        </section>
+        </section> -->
 
         <section class="skill">
 
           <h3 class="h3 skills-title">My skills</h3>
 
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Linux System Administration</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Virtualatization</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Branding</h5>
-                <data value="90">90%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">WordPress</h5>
-                <data value="50">50%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 50%;"></div>
-              </div>
-
-            </li>
-
+          <ul class="skills-list content-card timeline-text">
+              <li><strong>Cybersecurity & IT Operations:</strong> Cybersecurity, DevOps, Networking, High Performance Computing, Agile Methodology</li>
+              <li><strong>Programming & Data Analysis:</strong> Python, R, JavaScript, Git, Database Management, PowerBI, Tableau</li>
+              <li><strong>Virtualization & Containerization:</strong> VMware, Citrix, Proxmox, Docker, Apptainer, LXC/LXD, Kubernetes</li>
+              <li><strong>Infrastructure Management & Monitoring:</strong> Linux, Ansible, AWS, File Systems, Splunk, ELK, Zabbix, Netvault</li>
           </ul>
+          
 
         </section>
       </article>          
