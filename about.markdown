@@ -4,6 +4,7 @@ title: About
 permalink: /about/
 ---
 
+##  [← Back to Home]({{ / }})
 
 # About This Blog
 Hey there 👋
@@ -16,11 +17,14 @@ As I grow, this blog will grow with me.
 
 
 ## Under the hood
+This site is powered by **Jekyll**, using the minimalist and clean Minima theme. I’m hosting it on **GitHub Pages** — because it’s free, version-controlled, and made for  IT enthusisats like us.
 
-This blog is built using the Minima theme and powered by **Jekyll**, a simple and blog-aware static site generator that's perfect for developers and tech writers. The site is hosted freely using **GitHub** Pages, which makes maintaining and publishing content incredibly seamless.
+## Thanks 
+Shoutout to:
 
+The **Jekyll** community — for making it ridiculously easy to start blogging with Markdown
 
-
+**GitHub** — for letting me host this site for free with just a `git push`
 
 You can find the source code for Jekyll at GitHub:
 [jekyll][jekyll-organization] /
