@@ -4,9 +4,8 @@ title: About
 permalink: /about/
 ---
 
-##  [← Back to Home](https://kvnsai.github.io)
 
-# About This Blog
+
 Hey there 👋
 
 This blog is my personal tech corner — a living notebook where I share what I’m learning, experimenting with, and building. You’ll find posts on topics I’m passionate about: Linux internals, containers, Kubernetes, system design, security, and a bunch of other low-level and high-level tech.
@@ -26,8 +25,7 @@ The **Jekyll** community — for making it ridiculously easy to start blogging w
 
 **GitHub** — for letting me host this site for free with just a `git push`
 
-You can find the source code for Jekyll at GitHub:
-
+You can find the source code for Jekyll at GitHub: 
 [jekyll][jekyll-organization] /
 [jekyll](https://github.com/jekyll/jekyll)
 
@@ -37,5 +35,7 @@ You can find the source code for Minima at GitHub:
 [jekyll][jekyll-organization] /
 [minima](https://github.com/jekyll/minima)
 
+
+##  [← Back to Home](https://kvnsai.github.io)
 
 [jekyll-organization]: https://github.com/jekyll
