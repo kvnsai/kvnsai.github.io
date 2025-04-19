@@ -5,3 +5,10 @@ About scheduler
 Cluster services HA 
 MPI and MP
 Benchmarking
+
+Creating own Repo
+PXE booting
+Summurize OpenHPC
+
+Process Sychronization
+Problems: Producer-Consumer, Reader-Writer, Priority Inversion

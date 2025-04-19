@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+## Usage:
+# ./new_post.sh <Title with - insteead of space>
+
 # Set variables
 POSTS_DIR="_posts"
 DATE=$(date +"%Y-%m-%d")
@@ -21,7 +25,7 @@ cat <<EOF > "$FILENAME"
 layout: post
 title: $1
 date: $DATE
-categories: "Change as needed"
+categories: ""
 ---
 
 * TOC

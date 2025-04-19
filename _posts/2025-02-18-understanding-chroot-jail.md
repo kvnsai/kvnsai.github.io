@@ -114,6 +114,14 @@ Make it executable: ```chmod +x enter_chroot.sh```
 Now simply run: ```./enter_chroot.sh``` to quickly enter your `chroot` environment.
 
 ---
+
+### Automate `chroot` for Convenience
+Installing packages to a chroot environment:
+
+```bash
+dnf -y --installroot=$CHROOT install <package-name>
+```
+
 ## Conclusion
 `chroot` is a useful tool for system recovery, software testing, and lightweight isolation. However, it does not provide complete security like modern containerization solutions such as Docker or LXC. Still, it remains a valuable tool in any Linux user’s arsenal.
 
