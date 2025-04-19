@@ -32,10 +32,7 @@ You can find the source code for Minima at GitHub:
 [minima](https://github.com/jekyll/minima)
 
 
-<!-- ##  [← Back to Home](https://kvnsai.github.io) -->
+##  [← Back to Home](https://kvnsai.github.io)
 
-<div style="margin-top: 2em;">
-  <a href="(https://kvnsai.github.io)" style="font-weight: bold;">← Back to Home</a>
-</div>
 
 [jekyll-organization]: https://github.com/jekyll
