@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-##  [← Back to Home]({{ / }})
+##  [← Back to Home](https://kvnsai.github.io)
 
 # About This Blog
 Hey there 👋
@@ -27,9 +27,10 @@ The **Jekyll** community — for making it ridiculously easy to start blogging w
 **GitHub** — for letting me host this site for free with just a `git push`
 
 You can find the source code for Jekyll at GitHub:
+
 [jekyll][jekyll-organization] /
 [jekyll](https://github.com/jekyll/jekyll)
-[jekyll-organization]: https://github.com/jekyll
+
 
 
 You can find the source code for Minima at GitHub:
@@ -37,3 +38,4 @@ You can find the source code for Minima at GitHub:
 [minima](https://github.com/jekyll/minima)
 
 
+[jekyll-organization]: https://github.com/jekyll
