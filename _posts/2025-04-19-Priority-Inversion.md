@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Priority Inversion: The Mars Pathfinder Incident"
+title: "Priority Inversion: The Mars Pathfinder"
 date: 2025-04-19
 categories: "Operating Systems"  
 ---
