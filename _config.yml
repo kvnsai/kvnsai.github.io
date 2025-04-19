@@ -22,7 +22,7 @@ title: My Learnings and Blog
 # email: nsai@gmail.com
 author: Niranjan Sai
 description: >- # this means to ignore newlines until "baseurl:"
-  Here I will post about my learnings and how to  lind of notes
+  Welcome to my technical blog—a space where I document my learnings, share insights, and post detailed notes on everything from Linux internals and system design to Kubernetes, containers, security, and more. As I continue growing in my journey, I’ll also be expanding into other areas of tech, capturing my progress and discoveries along the way.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://kvnsai.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
