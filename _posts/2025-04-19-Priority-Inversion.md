@@ -8,7 +8,7 @@ categories: "Operating Systems"
 * TOC
 {:toc}
 
-<!-- # The Mars Pathfinder Incident: A Detailed Look at Priority Inversion in Real-Time Systems -->
+## The Mars Pathfinder Incident
 
 In July 1997, NASA's Mars Pathfinder successfully landed on the surface of Mars, marking a significant achievement in space exploration. The mission aimed to deploy a small rover, named Sojourner, that would explore the Martian terrain and send back valuable scientific data. While the mission was largely a success, it was not without its challenges. One of the most notable issues encountered during the mission was a recurring system reset problem on the lander. This issue was eventually traced back to a classic operating system scheduling anomaly known as **priority inversion**.
 
