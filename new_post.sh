@@ -60,4 +60,4 @@ EOF
 
 echo "New blog post created: $FILENAME"
 
-bundle exec jekyll serve
+# bundle exec jekyll serve

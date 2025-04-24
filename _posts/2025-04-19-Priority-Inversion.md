@@ -2,7 +2,7 @@
 layout: post
 title: "Priority Inversion: The Mars Pathfinder"
 date: 2025-04-19
-categories: "OS"  
+categories: "OS Process"  
 ---
 
 * TOC
