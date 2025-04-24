@@ -8,13 +8,6 @@ categories: OS Memory Process Storage
 * TOC
 {:toc}
 
-<aside class="sidebar">
-    <!-- Table of contents or nav links here -->
-* TOC
-{:toc}
-</aside>
-
-
 When you double-click a desktop icon, run a terminal command like `./my_app`, or tap an app on your phone, you're triggering a complex and fascinating process beneath the surface—one that transitions a program from passive storage on disk to an actively executing process in memory. This transformation is central to how computing systems function, and in this post, we'll explore every stage in intricate detail. This is not just about execution, but the **entire lifecycle**, covering operating system internals, memory management, file systems, CPU interactions, and more.
 
 ### Introduction
