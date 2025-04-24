@@ -8,6 +8,7 @@ categories: OS Memory
 * TOC
 {:toc}
 
+## Introduction
 In the world of computing, memory management forms the backbone of system performance, especially in high-performance computing (HPC), real-time trading systems, and aerospace systems. As computing scales to multi-core and distributed environments, the cost of inefficient memory use multiplies. Understanding memory management isn't just for OS developers — it directly impacts the speed, predictability, and scalability of applications. This blog aims to explore key memory management concepts—memory binding, virtual memory, paging, and NUMA (Non-Uniform Memory Access), explain their significance, and discuss how to optimize them in high-performance and real-time environments.
 
 ---
