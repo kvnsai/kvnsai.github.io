@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Demystifying Memory Management in High-Performance Systems: Virtual Memory, Memory Binding, and NUMA"
+title: "Demystifying Memory Management in Modern OS"
 date: 2025-04-24
-categories: ""
+categories: OS Memory
 ---
 
 * TOC
