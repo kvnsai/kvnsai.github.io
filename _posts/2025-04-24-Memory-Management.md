@@ -212,7 +212,7 @@ Advanced compilers (e.g., Intel, LLVM) can auto-vectorize, prefetch, and align m
 
 ---
 
-## 9. Conclusion: Mastering Memory for Peak Performance
+## 9. Conclusion
 
 Memory management is a critical lever in performance engineering. From the abstraction of virtual memory to the physical realities of NUMA and the speed advantages of DMA, understanding these systems helps developers and engineers make informed decisions.
 
