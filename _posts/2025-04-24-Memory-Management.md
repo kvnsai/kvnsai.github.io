@@ -8,11 +8,11 @@ categories: OS Memory
 * TOC
 {:toc}
 
-In the world of computing, memory management forms the backbone of system performance, especially in high-performance computing (HPC), real-time trading systems, and aerospace systems. As computing scales to multi-core and distributed environments, the cost of inefficient memory use multiplies. Understanding memory management isn't just for OS developers — it directly impacts the speed, predictability, and scalability of applications. This blog aims to explore key memory management concepts—memory binding, virtual memory, paging, and NUMA (Non-Uniform Memory Access)—in detail, explain their significance, and discuss how to optimize them in high-performance and real-time environments.
+In the world of computing, memory management forms the backbone of system performance, especially in high-performance computing (HPC), real-time trading systems, and aerospace systems. As computing scales to multi-core and distributed environments, the cost of inefficient memory use multiplies. Understanding memory management isn't just for OS developers — it directly impacts the speed, predictability, and scalability of applications. This blog aims to explore key memory management concepts—memory binding, virtual memory, paging, and NUMA (Non-Uniform Memory Access), explain their significance, and discuss how to optimize them in high-performance and real-time environments.
 
 ---
 
-## 1. The Foundation: Virtual Memory and Paging
+## The Foundation: Virtual Memory and Paging
 
 #### What is Virtual Memory?
 Virtual memory is an abstraction layer that allows applications to perceive they have access to a large, contiguous block of memory, regardless of the actual physical memory (RAM) available on the system. Each process gets its own virtual address space, increasing security and stability by isolating memory access across applications.
@@ -43,7 +43,7 @@ A cache for page table lookups. TLB misses cause latency as the page table must 
 
 ---
 
-## 2. Memory Binding: Compile-Time vs Run-Time
+## Memory Binding: Compile-Time vs Run-Time
 
 Memory binding refers to when program variables or instructions are assigned specific memory addresses. It affects flexibility, performance, and the ability to optimize memory locality.
 
@@ -76,7 +76,7 @@ x = [1, 2, 3]  # Allocated at run time
 
 ---
 
-## 3. NUMA: The Hardware Perspective
+## NUMA: The Hardware Perspective
 
 As CPUs evolved into multi-socket architectures, traditional uniform memory access (UMA) models became bottlenecks. NUMA introduces a hierarchical memory structure where each CPU socket has its own local memory.
 
@@ -103,7 +103,7 @@ Linux exposes NUMA topology via `/sys` and tools like `numactl`, `lscpu`, and `h
 
 ---
 
-## 4. The Interplay: Virtual Memory + NUMA + Binding
+## The Interplay: Virtual Memory + NUMA + Binding
 
 This is where the complexity multiplies. While virtual memory abstracts physical addresses, NUMA reintroduces the concept of *where* data is located. Consider the case:
 
@@ -122,7 +122,7 @@ Linux provides `mbind()`, `set_mempolicy()`, and `move_pages()` system calls for
 
 ---
 
-## 5. Optimization Techniques for Virtual Memory and NUMA
+## Optimization Techniques for Virtual Memory and NUMA
 
 #### a. Huge Pages
 Large memory pages (e.g., 2MB or 1GB vs 4KB) reduce TLB misses and improve memory access performance.
@@ -153,7 +153,7 @@ Custom memory allocators (e.g., TCMalloc, Jemalloc, or numa-aware malloc) distri
 
 ---
 
-## 6. Real-World Applications
+## Real-World Applications
 
 #### High-Frequency Trading (HFT)
 - Demands microsecond response times
@@ -176,7 +176,7 @@ Custom memory allocators (e.g., TCMalloc, Jemalloc, or numa-aware malloc) distri
 
 ---
 
-## 7. DMA and RDMA: Bridging Compute and I/O
+## DMA and RDMA: Bridging Compute and I/O
 
 #### Direct Memory Access (DMA)
 Allows peripherals (e.g., network cards) to read/write main memory without CPU involvement. Improves I/O throughput and reduces latency.
@@ -201,7 +201,7 @@ Key requirements:
 
 ---
 
-## 8. The Bigger Picture: Compiler, OS, and Hardware Coordination
+## The Bigger Picture: Compiler, OS, and Hardware Coordination
 
 Effective memory management is not isolated:
 - Compilers must align data structures for cache and TLB efficiency
@@ -212,7 +212,7 @@ Advanced compilers (e.g., Intel, LLVM) can auto-vectorize, prefetch, and align m
 
 ---
 
-## 9. Conclusion
+## Conclusion
 
 Memory management is a critical lever in performance engineering. From the abstraction of virtual memory to the physical realities of NUMA and the speed advantages of DMA, understanding these systems helps developers and engineers make informed decisions.
 
