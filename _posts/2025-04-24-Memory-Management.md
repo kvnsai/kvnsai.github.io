@@ -54,11 +54,18 @@ Occurs when memory addresses are determined at compilation. Example:
 ```c
 int globalVar = 100; // Bound at compile time in .data section
 ```
-
-This is fast but rigid — unsuitable for dynamic or modular applications. Useful in embedded systems and firmware.
+- **Address Type**: Often uses absolute addressing—hard-coded addresses based on assumptions of where the program will reside in memory.
+- **Pros**: Fast and predictable.
+- **Cons**: Rigid — not suitable for systems requiring dynamic memory usage or modular design.
+- **Use Cases**: Embedded systems, firmware, or real-time environments where memory layout must be tightly controlled.
 
 #### Load-Time Binding
-Addresses are assigned when the program is loaded into memory. This offers flexibility across different address spaces.
+Memory addresses are resolved when the program is loaded into RAM. The loader adjusts addresses based on where the program is placed in memory.
+
+- **Address Type**: Uses relative addressing (also called relocatable code). The actual address is calculated by adding the relative offset to a base address at load time.
+- **Pros**: Allows a single binary to run in multiple address spaces.
+- **Cons**: Slight overhead due to relocation.
+- **Use Cases**: Most general-purpose applications that aren't completely static or dynamically interpreted.
 
 #### Run-Time Binding
 Used for dynamically allocated memory (e.g., `malloc`, `new`) or interpreted code. It provides maximum flexibility, supporting features like dynamic linking and memory pooling.
@@ -66,6 +73,10 @@ Used for dynamically allocated memory (e.g., `malloc`, `new`) or interpreted cod
 ```python
 x = [1, 2, 3]  # Allocated at run time
 ```
+- **Address Type**: Dynamically managed — memory managers track and assign virtual addresses on the fly.
+- **Pros**: Maximum flexibility. Supports memory pooling, garbage collection, and dynamic linking.
+- **Cons**: Higher overhead, potential for fragmentation.
+- **Use Cases**: Applications with varying memory needs, such as web servers, scientific simulations, or scripting environments.
 
 #### Static vs Dynamic Linking
 - **Static Linking:** All code is bound at compile time into one executable.
