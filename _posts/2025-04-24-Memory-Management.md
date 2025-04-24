@@ -76,7 +76,7 @@ x = [1, 2, 3]  # Allocated at run time
 - **Address Type**: Dynamically managed — memory managers track and assign virtual addresses on the fly.
 - **Pros**: Maximum flexibility. Supports memory pooling, garbage collection, and dynamic linking.
 - **Cons**: Higher overhead, potential for fragmentation.
-- **Use Cases**: Applications with varying memory needs, such as web servers, scientific simulations, or scripting environments.
+- **.**: Applications with varying memory needs, such as web servers, scientific simulations, or scripting environments.
 
 #### Static vs Dynamic Linking
 - **Static Linking:** All code is bound at compile time into one executable.
