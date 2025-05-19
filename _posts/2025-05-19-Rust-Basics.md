@@ -209,3 +209,235 @@ If you had tried to mutate the original string into an integer, it would have re
 | Shadowing | No                            | Yes               | Local        |
 
 > Rust’s strict rules about immutability and clarity in variable declaration help catch bugs at compile time and encourage safe, predictable code.
+
+#  Data Types 
+## Primitives
+Rust is a statically-typed language, meaning all variables must have a known type at compile time. You can either let the compiler infer the type or explicitly annotate it.
+
+Rust’s data types are broadly classified into:
+-Scalar Types (single value)
+-Compound Types (multiple values, like arrays and tuples)
+
+### Scalar Types
+Scalar types represent a single value. There are four primary scalar types:
+- Integer
+- Floating-point
+- Boolean
+- Character
+
+#### Integer types
+
+| Type    | Signed        | Size    | Range                       |
+| ------- | ------------- | ------- | --------------------------- |
+| `i8`    | Yes           | 8-bit   | -128 to 127                 |
+| `u8`    | No            | 8-bit   | 0 to 255                    |
+| `i16`   | Yes           | 16-bit  | -32,768 to 32,767           |
+| `u16`   | No            | 16-bit  | 0 to 65,535                 |
+| `i32`   | **Default**   | 32-bit  | -2.1B to 2.1B              |
+| `u32`   | No            | 32-bit  | 0 to 4.29B                  |
+| `i64`   | Yes           | 64-bit  | Very large range            |
+| `u64`   | No            | 64-bit  | Very large range            |
+| `i128`  | Yes           | 128-bit | Enormous                    |
+| `u128`  | No            | 128-bit | Enormous                    |
+| `isize` | Yes           | Arch    | Depends on platform (32/64) |
+| `usize` | No            | Arch    | Used for indexing/size      |
+
+```rust
+fn main() {
+    let a: i32 = -100;
+    let b: u32 = 100;
+    println!("Signed: {}, Unsigned: {}", a, b);
+}
+```
+#### Floating-Point Types
+
+| Type  | Size          | Precision           |
+| ----- | ------------- | ------------------- |
+| `f32` | 32-bit        | \~6 decimal places  |
+| `f64` | **Default**   | \~15 decimal places |
+
+```rust
+fn main() {
+    let pi: f64 = 3.14159;
+    let e: f32 = 2.71828;
+    println!("Pi: {}, Euler's Number: {}", pi, e);
+}
+```
+#### Boolean 
+Boolean values are either `true` or `false`.
+```rust
+fn main() {
+    let is_active: bool = true;
+    let is_dead = false; // type inference
+    println!("Active? {}", is_active);
+}
+```
+#### Character
+
+Characters in Rust are 4-byte **Unicode scalar values**, not just ASCII.
+
+```rust
+fn main() {
+    let letter: char = 'A';
+    let emoji = '😊';
+    println!("Letter: {}, Emoji: {}", letter, emoji);
+}
+```
+
+### Compound Types
+Compound data types in Rust group multiple values into a single type. The two primary built‑in compound types are **tuples** and **arrays**, but it’s often useful to work with slices and the standard library’s growable vector type, `Vec<T>`. Let’s explore each in detail.
+#### Tuples
+A tuple is a fixed-size collection of values that can each have different types
+```rust
+fn main() {
+    // A 3‑element tuple with mixed types
+    let person: (&str, i32, bool) = ("Alice", 30, true);
+
+    // Destructuring
+    let (name, age, is_active) = person;
+    println!("Name: {}, Age: {}, Active: {}", name, age, is_active);
+
+    // Direct indexing
+    println!("Name (via index): {}", person.0);
+    println!("Age (via index): {}", person.1);
+}
+```
+##### Nested Tuples
+Tuples can contain other tuples:
+```rust
+fn main() {
+    let nested = (("x", 10), (true, 3.14));
+    let ((label, count), (flag, pi)) = nested;
+    println!("{}: {}, {}: {}", label, count, flag, pi);
+}
+```
+
+##### Tuples in Functions
+
+
+Tuples are handy for returning multiple values:
+```rust
+fn calculate_stats(data: &[i32]) -> (i32, i32, usize) {
+    let sum: i32 = data.iter().sum();
+    let min = *data.iter().min().unwrap();
+    let max = *data.iter().max().unwrap();
+    (sum, min, max as usize)
+}
+
+fn main() {
+    let readings = [10, 20, 30, 40];
+    let (sum, min, max_idx) = calculate_stats(&readings);
+    println!("Sum: {}, Min: {}, Max at index: {}", sum, min, max_idx);
+}
+```
+
+#### Arrays
+An array is a fixed-size collection of values of the same type. Its length is part of its type signature.
+##### Decalring Arrays
+```rust
+fn main() {
+    let nums: [i32; 5] = [1, 2, 3, 4, 5];
+    let zeros = [0; 4]; // same as [0, 0, 0, 0]
+    
+    println!("First: {}, Len: {}", nums[0], nums.len());
+}
+```
+##### Iterating over Arrays
+```rust
+fn main() {
+    let scores = [95, 84, 75, 100];
+
+    // By value
+    for score in scores {
+        println!("Score: {}", score);
+    }
+
+    // By reference (to avoid moving if type not Copy)
+    for score in &scores {
+        println!("Score ref: {}", score);
+    }
+}
+```
+##### Multi Dimensional Arrays
+```rust
+fn main() {
+    // 3 rows × 2 columns
+    let matrix: [[i32; 2]; 3] = [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+    ];
+
+    println!("matrix[1][0] = {}", matrix[1][0]); // 3
+}
+```
+#### Slices
+A slice is a view into a sequence (like an array or vector) and does not own the data.
+```rust
+fn main() {
+    let letters = ['a', 'b', 'c', 'd', 'e'];
+    let slice: &[char] = &letters[1..4]; // contains ['b', 'c', 'd']
+    
+    for ch in slice {
+        print!("{} ", ch);
+    }
+    // Output: b c d
+}
+```
+
+#### Vectors (Vec<T>)
+
+While arrays are fixed-size, `Vec<T>` is a growable collection provided by Rust’s standard library.
+
+##### Creating and Modifying Vectors
+'''rust
+fn main() {
+    // Empty vector, then push elements
+    let mut v: Vec<i32> = Vec::new();
+    v.push(10);
+    v.push(20);
+    v.push(30);
+
+    // Using the vec! macro
+    let mut fruit = vec!["apple", "banana", "cherry"];
+    fruit.push("date");
+
+    println!("Numbers: {:?}", v);
+    println!("Fruit: {:?}", fruit);
+}
+```
+
+##### Accessing Elements Safely
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+
+    // Using indexing (panics if out of bounds)
+    println!("v[1] = {}", v[1]);
+
+    // Using get (returns Option<&T>)
+    match v.get(5) {
+        Some(val) => println!("Value: {}", val),
+        None => println!("No element at that index"),
+    }
+}
+```
+
+##### Iteration and Slices
+
+Vectors can be sliced just like arrays:
+```rust
+fn main() {
+    let v = vec![100, 200, 300, 400];
+    let mid = &v[1..3]; // &[200, 300]
+    println!("Middle slice: {:?}", mid);
+}
+```
+
+### When to Use What
+- **Tuple**: Heterogeneous, fixed-size collections; great for grouping different types and returning multiple values.
+- **Array**: Homogeneous, fixed-size; good for stack‑allocated data when the size is known at compile time.
+- **Slice**: Borrowed view into a sequence; use in function parameters when you don’t need ownership.
+- **Vector** `(Vec<T>)`: Homogeneous, dynamic-size; use when you need to grow or shrink the collection at runtime.
+
+Compound data types in Rust give you both flexibility and safety. By choosing the right one for your use case, you can write clearer, more efficient code
