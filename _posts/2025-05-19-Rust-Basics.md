@@ -441,3 +441,194 @@ fn main() {
 - **Vector** `(Vec<T>)`: Homogeneous, dynamic-size; use when you need to grow or shrink the collection at runtime.
 
 Compound data types in Rust give you both flexibility and safety. By choosing the right one for your use case, you can write clearer, more efficient code
+
+## Arithmetic and Type Conversion
+Rust is a statically typed language with strong type safety, meaning it does not automatically perform type coercion between numeric types. This prevents many common bugs but requires developers to be explicit about type conversions. Let's explore how arithmetic and type conversion works in detail.
+
+##### Invalid Assignment and Overflow Protection
+
+```rust
+let x: u8 = 256;
+```
+**Error**: u8 can only store values from 0 to 255. 256 exceeds the range.
+
+Rust does not allow silent overflows in debug builds — this line causes a compile-time error.
+
+Why? Rust prioritizes safety over convenience. This protects your program from subtle bugs.
+
+##### Mixing Signed and Unsigned Types
+
+```rust
+let y: i8 = 10;
+let z = x + y;
+```
+Error: You cannot mix signed (i8) and unsigned (u8) types in arithmetic directly.
+
+Rust will not implicitly cast either value. Use as for explicit casting:
+```rust
+let z = x as i16 + y as i16;
+```
+
+##### Valid Integer Action
+```rust
+let x: i8 = 26;
+let y: i8 = 10;
+let z = x + y;
+println!("{}", z);
+```
+
+##### Integer Division
+Integer division truncates the result.
+```rust
+let x: i16 = 255;
+let y: i16 = 10;
+
+let z = x / y;
+println!("{}", z); // Output: 25
+```
+- `255 / 10 = 25.5` → Truncated to 25.
+- No rounding — this is always floor toward zero for positive numbers.
+
+##### Floating-Point Division and Remainder
+```rust
+let x: f32 = 255.0;
+let y: f32 = 10.0;
+
+let z = x / y;
+println!("{}", z); // Output: 25.5
+
+let z = x % y;
+println!("{}", z); // Output: 5
+```
+- Floating-point division yields exact result: `255.0 / 10.0 = 25.5`
+- Modulus `%` works with floats too: `255.0 % 10.0 = 5.0`
+
+##### Type Suffixes and Inference
+```rust
+let x = 255.0_f32; // Float literal with explicit type
+let y = 10i8;      // Integer literal with type i8
+
+let x = 127_000i64;
+let x = 1_000i64;
+let x = 10_000 as i32;
+```
+- Suffixes like `_f32`, `i64` specify type inline.
+- You can chain assignments, but note:
+- - The last assignment wins, so only the final x survives (x = 10_000 as i32)
+- - Useful for clarity and avoiding type mismatch.
+
+##### Type Conversion and Overflow
+```rust
+let x = (i32::MAX as i64) + 1;  // x = 2_147_483_648_i64
+let y = 10_i32;
+
+let z = x as i32 / y;
+println!("{}", z);  // Output: -2147483648 / 10 = -214748364
+```
+- `i32::MAX = 2_147_483_647`
+- Adding 1 as `i64` → no overflow (64-bit safe)
+- Casting back to `i32` causes overflow:
+- - `2_147_483_648_i64` as `i32` wraps around to `-2_147_483_648` (two’s complement wraparound)
+- **Result**: Dividing this gives a logically wrong value but no compile-time error.
+> **Takeaway**: Always avoid casting down from a larger integer type unless you're absolutely sure the value fits.
+
+## Console Input and Parsing
+Handling user input from the command line is a common requirement in any programming language. In Rust, you use the `std::io` module to read input from the console.
+
+Rust ensures safety and explicitness even in basic I/O, so you’ll often need to **allocate a buffer, read the input**, and then **parse it** into the desired type.
+
+##### Reading from Standard Input
+```rust
+use std::io;
+
+fn main() {
+    let mut input = String::new();
+
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read input");
+
+    println!("You entered: {}", input);
+}
+```
+- `String::new()` creates an empty growable string buffer.
+- `io::stdin().read_line(&mut input)` reads input until a newline and appends it to the buffer.
+- It returns a `Result<usize>`, where `usize` is the number of bytes read.
+- `expect()` unwraps the result or panics with the message if an error occurs.
+
+##### Trimming and Parsing Input
+User input often includes a trailing newline character (\n or \r\n). To convert the input to a numeric type or other value, you must:
+1. Trim the newline
+1. Parse the string into the desired type
+```rust
+use std::io;
+
+fn main() {
+    let mut input = String::new();
+
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read input");
+
+    let trimmed = input.trim();
+
+    let number: i32 = trimmed.parse().expect("Input was not a valid number");
+
+    println!("Number + 2 = {}", number + 2);
+}
+```
+###### parse() Details
+- The `parse()` method is available for any type that implements the `FromStr` trait (like `i32`, `f64`, etc.).
+- The return type is `Result<T, ParseIntError>` (or `ParseFloatError` for floats).
+- If parsing fails, the `Result` contains an error instead of a value.
+
+##### Safe Parsing with Match
+Using `unwrap()` will crash the program on invalid input. Use `match` for safer handling:
+```rust
+use std::io;
+
+fn main() {
+    let mut input = String::new();
+
+    io::stdin().read_line(&mut input).expect("Failed to read line");
+
+    match input.trim().parse::<i64>() {
+        Ok(num) => println!("You entered: {}", num),
+        Err(_) => println!("Invalid input! Please enter a valid number."),
+    }
+}
+```
+##### Summary of Console Input
+| Task                     | Method                     | Return Type                |
+| ------------------------ | -------------------------- | -------------------------- |
+| Read line from stdin     | `read_line(&mut String)`   | `Result<usize, io::Error>` |
+| Trim newline characters  | `String::trim()`           | `&str`                     |
+| Parse string to number   | `str::parse::<T>()`        | `Result<T, ParseIntError>` |
+| Unwrap value from Result | `.unwrap()` or `.expect()` | `T` or panic               |
+| Handle parse failure     | `match` or `.unwrap_or()`  | Non-panic error handling   |
+
+#### Looping Until Valid Input
+
+For interactive CLI apps, loop until valid input is received:
+```rust
+use std::io;
+
+fn main() {
+    loop {
+        let mut input = String::new();
+        println!("Enter a number:");
+
+        io::stdin().read_line(&mut input).expect("Failed to read line");
+
+        match input.trim().parse::<i32>() {
+            Ok(num) => {
+                println!("You entered: {}", num);
+                break;
+            }
+            Err(_) => {
+                println!("Not a valid number. Try again!");
+            }
+        }
+    }
+}
+```
