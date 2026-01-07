@@ -302,7 +302,7 @@ fn main() {
     println!("Age (via index): {}", person.1);
 }
 ```
-##### Nested Tuples
+#### Nested Tuples
 Tuples can contain other tuples:
 ```rust
 fn main() {
@@ -312,7 +312,7 @@ fn main() {
 }
 ```
 
-##### Tuples in Functions
+#### Tuples in Functions
 
 
 Tuples are handy for returning multiple values:
@@ -333,7 +333,7 @@ fn main() {
 
 #### Arrays
 An array is a fixed-size collection of values of the same type. Its length is part of its type signature.
-##### Decalring Arrays
+#### Decalring Arrays
 ```rust
 fn main() {
     let nums: [i32; 5] = [1, 2, 3, 4, 5];
@@ -342,7 +342,7 @@ fn main() {
     println!("First: {}, Len: {}", nums[0], nums.len());
 }
 ```
-##### Iterating over Arrays
+#### Iterating over Arrays
 ```rust
 fn main() {
     let scores = [95, 84, 75, 100];
@@ -358,7 +358,7 @@ fn main() {
     }
 }
 ```
-##### Multi Dimensional Arrays
+#### Multi Dimensional Arrays
 ```rust
 fn main() {
     // 3 rows × 2 columns
@@ -389,7 +389,7 @@ fn main() {
 
 While arrays are fixed-size, `Vec<T>` is a growable collection provided by Rust’s standard library.
 
-##### Creating and Modifying Vectors
+#### Creating and Modifying Vectors
 '''rust
 fn main() {
     // Empty vector, then push elements
@@ -407,7 +407,7 @@ fn main() {
 }
 ```
 
-##### Accessing Elements Safely
+#### Accessing Elements Safely
 ```rust
 fn main() {
     let v = vec![1, 2, 3];
@@ -423,7 +423,7 @@ fn main() {
 }
 ```
 
-##### Iteration and Slices
+#### Iteration and Slices
 
 Vectors can be sliced just like arrays:
 ```rust
@@ -445,7 +445,7 @@ Compound data types in Rust give you both flexibility and safety. By choosing th
 ## Arithmetic and Type Conversion
 Rust is a statically typed language with strong type safety, meaning it does not automatically perform type coercion between numeric types. This prevents many common bugs but requires developers to be explicit about type conversions. Let's explore how arithmetic and type conversion works in detail.
 
-##### Invalid Assignment and Overflow Protection
+#### Invalid Assignment and Overflow Protection
 
 ```rust
 let x: u8 = 256;
@@ -456,7 +456,7 @@ Rust does not allow silent overflows in debug builds — this line causes a comp
 
 Why? Rust prioritizes safety over convenience. This protects your program from subtle bugs.
 
-##### Mixing Signed and Unsigned Types
+#### Mixing Signed and Unsigned Types
 
 ```rust
 let y: i8 = 10;
@@ -469,7 +469,7 @@ Rust will not implicitly cast either value. Use as for explicit casting:
 let z = x as i16 + y as i16;
 ```
 
-##### Valid Integer Action
+#### Valid Integer Action
 ```rust
 let x: i8 = 26;
 let y: i8 = 10;
@@ -477,7 +477,7 @@ let z = x + y;
 println!("{}", z);
 ```
 
-##### Integer Division
+#### Integer Division
 Integer division truncates the result.
 ```rust
 let x: i16 = 255;
@@ -489,7 +489,7 @@ println!("{}", z); // Output: 25
 - `255 / 10 = 25.5` → Truncated to 25.
 - No rounding — this is always floor toward zero for positive numbers.
 
-##### Floating-Point Division and Remainder
+#### Floating-Point Division and Remainder
 ```rust
 let x: f32 = 255.0;
 let y: f32 = 10.0;
@@ -503,7 +503,7 @@ println!("{}", z); // Output: 5
 - Floating-point division yields exact result: `255.0 / 10.0 = 25.5`
 - Modulus `%` works with floats too: `255.0 % 10.0 = 5.0`
 
-##### Type Suffixes and Inference
+#### Type Suffixes and Inference
 ```rust
 let x = 255.0_f32; // Float literal with explicit type
 let y = 10i8;      // Integer literal with type i8
@@ -517,7 +517,7 @@ let x = 10_000 as i32;
 - - The last assignment wins, so only the final x survives (x = 10_000 as i32)
 - - Useful for clarity and avoiding type mismatch.
 
-##### Type Conversion and Overflow
+#### Type Conversion and Overflow
 ```rust
 let x = (i32::MAX as i64) + 1;  // x = 2_147_483_648_i64
 let y = 10_i32;
@@ -537,7 +537,7 @@ Handling user input from the command line is a common requirement in any program
 
 Rust ensures safety and explicitness even in basic I/O, so you’ll often need to **allocate a buffer, read the input**, and then **parse it** into the desired type.
 
-##### Reading from Standard Input
+#### Reading from Standard Input
 ```rust
 use std::io;
 
@@ -556,7 +556,7 @@ fn main() {
 - It returns a `Result<usize>`, where `usize` is the number of bytes read.
 - `expect()` unwraps the result or panics with the message if an error occurs.
 
-##### Trimming and Parsing Input
+#### Trimming and Parsing Input
 User input often includes a trailing newline character (\n or \r\n). To convert the input to a numeric type or other value, you must:
 1. Trim the newline
 1. Parse the string into the desired type
@@ -577,12 +577,12 @@ fn main() {
     println!("Number + 2 = {}", number + 2);
 }
 ```
-###### parse() Details
+##### parse() Details
 - The `parse()` method is available for any type that implements the `FromStr` trait (like `i32`, `f64`, etc.).
 - The return type is `Result<T, ParseIntError>` (or `ParseFloatError` for floats).
 - If parsing fails, the `Result` contains an error instead of a value.
 
-##### Safe Parsing with Match
+#### Safe Parsing with Match
 Using `unwrap()` will crash the program on invalid input. Use `match` for safer handling:
 ```rust
 use std::io;
@@ -598,7 +598,7 @@ fn main() {
     }
 }
 ```
-##### Summary of Console Input
+#### Summary of Console Input
 | Task                     | Method                     | Return Type                |
 | ------------------------ | -------------------------- | -------------------------- |
 | Read line from stdin     | `read_line(&mut String)`   | `Result<usize, io::Error>` |
