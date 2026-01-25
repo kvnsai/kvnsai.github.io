@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Rust Programming Basic"
 date: 2025-05-19
 categories: Rust
@@ -206,7 +206,7 @@ If you had tried to mutate the original string into an integer, it would have re
 | --------- | ----------------------------- | ------------------- | ------------ |
 | `let`     | No (default) / Yes with `mut` | No                  | Local        |
 | `const`   | No                            | No                  | Global/Local |
-| Shadowing | No                            | Yes               | Local        |
+| Shadowing | No                            | Yes                 | Local        |
 
 > Rust’s strict rules about immutability and clarity in variable declaration help catch bugs at compile time and encourage safe, predictable code.
 
@@ -599,6 +599,7 @@ fn main() {
 }
 ```
 #### Summary of Console Input
+
 | Task                     | Method                     | Return Type                |
 | ------------------------ | -------------------------- | -------------------------- |
 | Read line from stdin     | `read_line(&mut String)`   | `Result<usize, io::Error>` |
