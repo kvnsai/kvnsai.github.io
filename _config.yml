@@ -38,7 +38,6 @@ toc:
   max_level: 4
 
 nav_breadcrumbs: true
-nav_enabled: true
 heading_anchors: true
 
 # Footer content

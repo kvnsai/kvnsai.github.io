@@ -3,6 +3,7 @@ layout: default
 title: "Rust Programming Basic"
 date: 2025-05-19
 categories: Rust
+has_toc: true
 ---
 
 * TOC

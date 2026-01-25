@@ -19,6 +19,9 @@ document.addEventListener("includes-loaded", () => {
         const pageEl = content.querySelector(`[data-page="${page}"]`);
         if (pageEl) pageEl.classList.add("active");
 
+        // Run joinHTML on newly loaded content
+        if (window.joinHTML) joinHTML(content);
+
         // Init scripts
         if (page !== "blog" && window.initPageScripts) {
           window.initPageScripts();
