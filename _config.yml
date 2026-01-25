@@ -32,7 +32,7 @@ url: "https://kvnsai.github.io" # the base hostname & protocol for your site, e.
 #   skin: dark
 
 theme: minimal-mistakes-jekyll
-remote_theme: "mmistakes/minimal-mistakes@4.27"
+# remote_theme: "mmistakes/minimal-mistakes@4.27"
 
 markdown: kramdown
 kramdown:
