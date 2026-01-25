@@ -1,0 +1,29 @@
+<!-- pages/blog/blog.html -->
+<article class="blog" data-page="blog">
+  <header>
+    <h2 class="h2 article-title">Blog Posts</h2>
+  </header>
+
+  <!-- Filter buttons -->
+  <ul class="filter-list">
+    <li class="filter-item">
+      <button class="active" data-filter-btn>All</button>
+    </li>
+  </ul>
+
+  <!-- Dropdown for small screens -->
+  <div class="filter-select-box">
+    <button class="filter-select" data-select>
+      <div class="select-value" data-selecct-value>Select category</div>
+      <div class="select-icon">
+        <ion-icon name="chevron-down"></ion-icon>
+      </div>
+    </button>
+    <ul class="select-list"></ul>
+  </div>
+
+  <!-- Blog list -->
+  <ul id="blog-posts" class="blog-list">
+    <li class="blog-post-item">Loading posts...</li>
+  </ul>
+</article>

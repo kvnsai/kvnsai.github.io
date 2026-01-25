@@ -1,221 +1,94 @@
-'use strict';
+"use strict";
 
+// ---------------- Page-specific JS ----------------
+window.initPageScripts = function () {
+  // Exclude blog logic here
 
+  // Testimonials modal
+  const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
+  const modalContainer = document.querySelector("[data-modal-container]");
+  const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+  const overlay = document.querySelector("[data-overlay]");
+  const modalImg = document.querySelector("[data-modal-img]");
+  const modalTitle = document.querySelector("[data-modal-title]");
+  const modalText = document.querySelector("[data-modal-text]");
 
-// element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+  const toggleModal = () => {
+    modalContainer?.classList.toggle("active");
+    overlay?.classList.toggle("active");
+  };
 
-
-
-// sidebar variables
-const sidebar = document.querySelector("[data-sidebar]");
-const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
-
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-}
-
-// add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
-
-  testimonialsItem[i].addEventListener("click", function () {
-
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
-    testimonialsModalFunc();
-
-  });
-
-}
-
-// add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
-
-
-
-// custom select variables
-const select = document.querySelector("[data-select]");
-const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
-const filterBtn = document.querySelectorAll("[data-filter-btn]");
-
-select.addEventListener("click", function () { elementToggleFunc(this); });
-
-// add event in all select items
-for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    elementToggleFunc(select);
-    filterFunc(selectedValue);
-
-  });
-}
-
-// filter variables
-const filterItems = document.querySelectorAll("[data-filter-item]");
-
-const filterFunc = function (selectedValue) {
-
-  for (let i = 0; i < filterItems.length; i++) {
-
-    if (selectedValue === "all") {
-      filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
-      filterItems[i].classList.add("active");
-    } else {
-      filterItems[i].classList.remove("active");
-    }
-
-  }
-
-}
-
-// add event in all filter button items for large screen
-let lastClickedBtn = filterBtn[0];
-
-for (let i = 0; i < filterBtn.length; i++) {
-
-  filterBtn[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    filterFunc(selectedValue);
-
-    lastClickedBtn.classList.remove("active");
-    this.classList.add("active");
-    lastClickedBtn = this;
-
-  });
-
-}
-
-
-
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
-
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
-  });
-}
-
-
-
-// // page navigation variables
-// const navigationLinks = document.querySelectorAll("[data-nav-link]");
-// const pages = document.querySelectorAll("[data-page]");
-
-// // add event to all nav link
-// for (let i = 0; i < navigationLinks.length; i++) {
-//   navigationLinks[i].addEventListener("click", function () {
-
-//     for (let i = 0; i < pages.length; i++) {
-//       if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-//         pages[i].classList.add("active");
-//         navigationLinks[i].classList.add("active");
-//         window.scrollTo(0, 0);
-//       } else {
-//         pages[i].classList.remove("active");
-//         navigationLinks[i].classList.remove("active");
-//       }
-//     }
-
-//   });
-// }
-
-const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
-
-// add event to all nav links
-navigationLinks.forEach((navLink) => {
-  navLink.addEventListener("click", function () {
-    const targetPage = this.innerHTML.toLowerCase();
-
-    // Remove "active" class from all navigation links
-    navigationLinks.forEach((link) => link.classList.remove("active"));
-
-    // Remove "active" class from all pages
-    pages.forEach((page) => {
-      if (page.dataset.page === targetPage) {
-        page.classList.add("active");
-        navLink.classList.add("active"); // Correctly adds "active" class to the clicked nav item
-        window.scrollTo(0, 0);
-      } else {
-        page.classList.remove("active");
-      }
+  testimonialsItem.forEach(item => {
+    item.addEventListener("click", () => {
+      modalImg.src = item.querySelector("[data-testimonials-avatar]")?.src;
+      modalTitle.innerHTML = item.querySelector("[data-testimonials-title]")?.innerHTML;
+      modalText.innerHTML = item.querySelector("[data-testimonials-text]")?.innerHTML;
+      toggleModal();
     });
   });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("/blog.html") // Fetch blog page
-    .then((response) => response.text())
-    .then((html) => {
+  modalCloseBtn?.addEventListener("click", toggleModal);
+  overlay?.addEventListener("click", toggleModal);
+
+  // Forms
+  const form = document.querySelector("[data-form]");
+  const formInputs = document.querySelectorAll("[data-form-input]");
+  const formBtn = document.querySelector("[data-form-btn]");
+
+  formInputs.forEach(input => {
+    input.addEventListener("input", () => {
+      if (form?.checkValidity()) formBtn?.removeAttribute("disabled");
+      else formBtn?.setAttribute("disabled", "");
+    });
+  });
+};
+
+// ---------------- Blog loader ----------------
+window.initBlog = function () {
+  const blogPage = document.querySelector('[data-page="blog"]');
+  if (!blogPage) return;
+
+  const blogList = blogPage.querySelector("#blog-posts");
+  const filterList = blogPage.querySelector(".filter-list");
+  const selectList = blogPage.querySelector(".select-list");
+  const selectValue = blogPage.querySelector("[data-selecct-value]");
+
+  if (!blogList) return;
+
+  fetch("/blog.html") // Always fetch Jekyll-generated blog page
+    .then(res => res.text())
+    .then(html => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
 
+      // Jekyll-generated blog posts
       const posts = doc.querySelectorAll("ul li a");
-      const blogList = document.getElementById("blog-posts");
+      blogList.innerHTML = "";
+      filterList.innerHTML = `<li class="filter-item"><button class="active" data-filter-btn>All</button></li>`;
+      selectList.innerHTML = `<li class="select-item"><button data-select-item>All</button></li>`;
+      selectValue.textContent = "All";
 
-      const filterList = document.querySelector(".filter-list");
-      const selectList = document.querySelector(".select-list");
-      const selectValue = document.querySelector("[data-selecct-value]");
+      const categoriesSet = new Set();
 
-      let categoriesSet = new Set();
-      blogList.innerHTML = ""; // Clear loading text
+      posts.forEach(post => {
+        const url = post.getAttribute("href");
+        const title = post.textContent;
 
-      posts.forEach((post) => {
-        const urlParts = post.getAttribute("href").split("/").filter(Boolean);
-        const day = urlParts[urlParts.length - 4];
-        const month = urlParts[urlParts.length - 3];
-        const year = urlParts[urlParts.length - 2];
-        const categories = urlParts.slice(0, -4); // Array of categories
+        // Extract categories and date from the URL
+        const parts = url.split("/").filter(Boolean);
+        // const article = parts[parts.length - 1]; // filename
+        const day = parts[parts.length - 2];
+        const month = parts[parts.length - 3];
+        const year = parts[parts.length - 4];
+        const categories = parts.slice(0, -4);
+        categories.forEach(cat => categoriesSet.add(cat));
 
-        categories.forEach((cat) => categoriesSet.add(cat)); // Collect unique categories
-
-        const listItem = document.createElement("li");
-        listItem.classList.add("blog-post-item");
-        listItem.setAttribute("data-category", categories.join(" ")); // Add categories as data attribute
-
-        listItem.innerHTML = `
-          <a href="${post.href}" class="blog-link">
-            
-            <h3 class="h3 blog-item-title">${post.textContent}</h3>
+        const li = document.createElement("li");
+        li.classList.add("blog-post-item");
+        li.dataset.category = categories.join(" ");
+        li.innerHTML = `
+          <a href="${url}" class="blog-link">
+            <h3 class="h3 blog-item-title">${title}</h3>
             <div class="blog-meta">
               <span class="arrow">||</span> 
               <time datetime="${year}-${month}-${day}">${day} ${month}, ${year}</time>
@@ -224,20 +97,11 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
           </a>
         `;
-        blogList.appendChild(listItem);
+        blogList.appendChild(li);
       });
 
-      // Clear existing filter items except "All"
-      filterList.innerHTML = `<li class="filter-item">
-        <button class="active" data-filter-btn>All</button>
-      </li>`;
-
-      selectList.innerHTML = `<li class="select-item">
-        <button data-select-item>All</button>
-      </li>`;
-
-      // Add categories to the filter buttons and dropdown list
-      categoriesSet.forEach((category) => {
+      // Add category filters
+      categoriesSet.forEach(category => {
         const filterItem = document.createElement("li");
         filterItem.classList.add("filter-item");
         filterItem.innerHTML = `<button data-filter-btn>${category}</button>`;
@@ -249,42 +113,34 @@ document.addEventListener("DOMContentLoaded", function () {
         selectList.appendChild(selectItem);
       });
 
-      // Filtering logic for buttons
-      document.querySelectorAll("[data-filter-btn]").forEach((btn) => {
-        btn.addEventListener("click", function () {
-          const selectedCategory = this.textContent.trim();
+      const filterPosts = category => {
+        blogPage.querySelectorAll(".blog-post-item").forEach(post => {
+          const postCategories = post.dataset.category.split(" ");
+          post.style.display = category === "All" || postCategories.includes(category) ? "block" : "none";
+        });
+      };
 
-          document.querySelectorAll("[data-filter-btn]").forEach((b) => b.classList.remove("active"));
-          this.classList.add("active");
-
-          filterPosts(selectedCategory);
+      // Filter button click
+      blogPage.querySelectorAll("[data-filter-btn]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const category = btn.textContent.trim();
+          blogPage.querySelectorAll("[data-filter-btn]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          filterPosts(category);
         });
       });
 
-      // Filtering logic for dropdown
-      document.querySelectorAll("[data-select-item]").forEach((item) => {
-        item.addEventListener("click", function () {
-          const selectedCategory = this.textContent.trim();
-          selectValue.textContent = selectedCategory;
-
-          filterPosts(selectedCategory);
+      // Dropdown select click
+      blogPage.querySelectorAll("[data-select-item]").forEach(item => {
+        item.addEventListener("click", () => {
+          const category = item.textContent.trim();
+          selectValue.textContent = category;
+          filterPosts(category);
         });
       });
-
-      // Function to filter posts
-      function filterPosts(category) {
-        document.querySelectorAll(".blog-post-item").forEach((post) => {
-          const postCategories = post.getAttribute("data-category").split(" ");
-          if (category === "All" || postCategories.includes(category)) {
-            post.style.display = "block";
-          } else {
-            post.style.display = "none";
-          }
-        });
-      }
     })
-    .catch((error) => {
-      console.error("Error fetching blog posts:", error);
-      document.getElementById("blog-posts").innerHTML = "<li>Failed to load posts.</li>";
+    .catch(err => {
+      console.error("Error loading blog posts:", err);
+      blogList.innerHTML = `<li>Failed to load posts.</li>`;
     });
-});
+};

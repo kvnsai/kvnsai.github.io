@@ -2,7 +2,7 @@
 layout: post
 title: "The Lifecycle of a Program: From Storage to Execution"
 date: 2025-04-24
-categories: OS Memory Process Storage
+categories: Memory OS Process Storage
 ---
 
 * TOC

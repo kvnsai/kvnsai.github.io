@@ -2,7 +2,7 @@
 layout: post
 title: "WekaFS : An Innvotive File System"
 date: 2025-04-19
-categories: Storage HPC
+categories: HPC Storage
 ---
 
 * TOC

@@ -2,7 +2,7 @@
 layout: post
 title: "Demystifying Memory Management in Modern OS"
 date: 2025-04-24
-categories: OS Memory
+categories: Memory OS
 ---
 
 * TOC

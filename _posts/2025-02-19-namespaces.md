@@ -2,7 +2,7 @@
 layout: post
 title: "Understanding Linux Namespaces"
 date: 2025-Feb-19
-categories: "OS Linux Containerization"
+categories: Containerization Linux OS
 author: Niranjan Sai
 ---
 
