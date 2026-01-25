@@ -1,69 +1,21 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
 title: My Learnings and Blog
-# email: niranjansaimeow@gmail.com
 author: Niranjan Sai
-description: >- # this means to ignore newlines until "baseurl:"
+description: >-
   Welcome to my technical blog—a space where I document my learnings, share insights, and post detailed notes on everything from Linux internals and system design to Kubernetes, containers, security, and more. As I continue growing in my journey, I’ll also be expanding into other areas of tech, capturing my progress and discoveries along the way.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://kvnsai.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-# twitter_username: jekyllrb
-# github_username:  kvnsai
-# theme: minima
-# minima:
-#   skin: dark
 
-# theme: minimal-mistakes-jekyll
+baseurl: ""          # subpath of your site, e.g., /blog
+url: "https://kvnsai.github.io" # base hostname
+
+# Use remote_theme for GitHub Pages
 remote_theme: "mmistakes/minimal-mistakes@4.27"
 
 markdown: kramdown
 kramdown:
-  toc_levels: 1..3  # Specifies which heading levels to include in TOC
+  toc_levels: 1..3
 
-  
-# Build settings
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
 
 exclude:
   - index.markdown
-
-
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
