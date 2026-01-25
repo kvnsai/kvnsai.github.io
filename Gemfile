@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 # Let GitHub Pages manage all Jekyll dependencies
 gem "github-pages", group: :jekyll_plugins
-# gem "just-the-docs"
+gem "just-the-docs"
 
 # Required for Minimal Mistakes remote theme
 gem "jekyll-remote-theme"

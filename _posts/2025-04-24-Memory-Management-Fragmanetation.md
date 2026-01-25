@@ -3,6 +3,7 @@ layout: post
 title: "Memory Management in Operating Systems: A Deep Dive"
 date: 2025-04-24
 categories: "Memory OS"
+has_toc: true
 ---
 
 * TOC

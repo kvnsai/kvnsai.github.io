@@ -1,0 +1,8 @@
+{% if page.layout == "post" %}
+  <details open>
+    <summary>Table of Contents</summary>
+    {% capture toc %}* TOC
+    {:toc}{% endcapture %}
+    {{ toc | markdownify }}
+  </details>
+{% endif %}
