@@ -256,6 +256,41 @@ article.active {
   border-radius: 3px;
 }
 
+/* Download button for resume */
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-gradient-onyx);
+  border: 1px solid var(--jet);
+  border-radius: 8px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-500);
+  text-decoration: none;
+  transition: var(--transition-1);
+  margin-left: 15px;
+}
+
+.download-btn:hover {
+  background: var(--bg-gradient-yellow-2);
+  color: var(--white-1);
+}
+
+.download-btn ion-icon {
+  font-size: 16px;
+}
+
+.resume header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 .has-scrollbar::-webkit-scrollbar {
   width: 5px; /* for vertical scrollbar */
   height: 5px; /* for horizontal scrollbar */
@@ -488,8 +523,32 @@ main {
 
 .navbar-link.active { color: var(--orange-yellow-crayola); }
 
+.navbar-item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
 
+.navbar-download {
+  color: hsl(45, 100%, 60%);
+  font-size: 22px;
+  padding: 15px 8px;
+  transition: all var(--transition-1);
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  -webkit-text-stroke: 1px hsl(45, 100%, 60%);
+}
 
+.navbar-download ion-icon {
+  --ionicon-stroke-width: 48px;
+}
+
+.navbar-download:hover {
+  color: hsl(45, 100%, 75%);
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px hsl(45, 100%, 60%));
+}
 
 
 /*-----------------------------------*\
@@ -779,6 +838,11 @@ main {
   align-items: center;
   gap: 15px;
   margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.timeline .title-wrapper .download-btn {
+  margin-left: auto;
 }
 
 .timeline-list {
@@ -865,6 +929,44 @@ main {
 
 
 .skills-item:not(:last-child) { margin-bottom: 15px; }
+
+/**
+ * certifications
+ */
+
+.certifications {
+  margin-top: 30px;
+}
+
+.cert-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.cert-link {
+  display: inline-block;
+  transition: var(--transition-1);
+}
+
+.cert-link:hover {
+  transform: scale(1.05);
+}
+
+.cert-img {
+  height: 156px;
+  width: auto;
+  border-radius: 6px;
+}
+
+.cert-hint {
+  margin-top: 10px;
+  font-size: var(--fs-8);
+  color: var(--light-gray-70);
+  font-style: italic;
+}
 
 .skill .title-wrapper {
   display: flex;
@@ -1961,4 +2063,121 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
   
 
+}
+
+
+/*-----------------------------------*\
+  #TOC SIDEBAR (Right sidebar for blog posts)
+\*-----------------------------------*/
+
+.post-wrapper {
+  display: flex;
+  gap: 30px;
+  position: relative;
+}
+
+.post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.toc-sidebar {
+  display: none;
+}
+
+/* Show TOC sidebar on larger screens */
+@media (min-width: 1200px) {
+  .toc-sidebar {
+    display: block;
+    position: sticky;
+    top: 80px;
+    width: 250px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 15px;
+    background: var(--eerie-black-2);
+    border: 1px solid var(--jet);
+    border-radius: 14px;
+    box-shadow: var(--shadow-1);
+  }
+  
+  .toc-sidebar::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .toc-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .toc-sidebar::-webkit-scrollbar-thumb {
+    background: var(--jet);
+    border-radius: 5px;
+  }
+}
+
+.toc-header {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--jet);
+}
+
+.toc-header h4 {
+  color: var(--white-1);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  margin: 0;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  margin: 0;
+  padding: 0;
+}
+
+.toc-link {
+  display: block;
+  padding: 6px 10px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-7);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: var(--transition-1);
+  line-height: 1.4;
+}
+
+.toc-link:hover {
+  color: var(--white-1);
+  background: var(--bg-gradient-jet);
+}
+
+.toc-link.active {
+  color: var(--orange-yellow-crayola);
+  border-left-color: var(--orange-yellow-crayola);
+  background: var(--bg-gradient-jet);
+}
+
+/* Indentation for different heading levels */
+.toc-h1 .toc-link {
+  padding-left: 10px;
+  font-weight: var(--fw-500);
+}
+
+.toc-h2 .toc-link {
+  padding-left: 20px;
+}
+
+.toc-h3 .toc-link {
+  padding-left: 30px;
+  font-size: var(--fs-8);
+}
+
+.toc-h4 .toc-link {
+  padding-left: 40px;
+  font-size: var(--fs-8);
 }
