@@ -55,40 +55,35 @@ window.initBlog = function () {
 
   if (!blogList) return;
 
-  fetch("/blog.html") // Always fetch Jekyll-generated blog page
+  fetch("/blog.html")
     .then(res => res.text())
     .then(html => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
 
-      // Jekyll-generated blog posts
-      const posts = doc.querySelectorAll("ul li a");
-      blogList.innerHTML = "";
-      filterList.innerHTML = `<li class="filter-item"><button class="active" data-filter-btn>All</button></li>`;
-      selectList.innerHTML = `<li class="select-item"><button data-select-item>All</button></li>`;
-      selectValue.textContent = "All";
-
+      // Get posts from Jekyll-generated blog.html (only from #blog-posts ul)
+      const posts = doc.querySelectorAll("#blog-posts li a");
+      
       const categoriesSet = new Set();
+      blogList.innerHTML = ""; // Clear loading text
 
       posts.forEach(post => {
-        const url = post.getAttribute("href");
-        const title = post.textContent;
+        const urlParts = post.getAttribute("href").split("/").filter(Boolean);
+        // URL structure: /category1/category2/.../year/month/day/article-name
+        const day = urlParts[urlParts.length - 2];
+        const month = urlParts[urlParts.length - 3];
+        const year = urlParts[urlParts.length - 4];
+        const categories = urlParts.slice(0, -4); // Array of categories (everything before year)
 
-        // Extract categories and date from the URL
-        const parts = url.split("/").filter(Boolean);
-        // const article = parts[parts.length - 1]; // filename
-        const day = parts[parts.length - 2];
-        const month = parts[parts.length - 3];
-        const year = parts[parts.length - 4];
-        const categories = parts.slice(0, -4);
-        categories.forEach(cat => categoriesSet.add(cat));
+        categories.forEach(cat => categoriesSet.add(cat)); // Collect unique categories
 
-        const li = document.createElement("li");
-        li.classList.add("blog-post-item");
-        li.dataset.category = categories.join(" ");
-        li.innerHTML = `
-          <a href="${url}" class="blog-link">
-            <h3 class="h3 blog-item-title">${title}</h3>
+        const listItem = document.createElement("li");
+        listItem.classList.add("blog-post-item");
+        listItem.setAttribute("data-category", categories.join(" ")); // Add categories as data attribute
+
+        listItem.innerHTML = `
+          <a href="${post.getAttribute("href")}" class="blog-link">
+            <h3 class="h3 blog-item-title">${post.textContent}</h3>
             <div class="blog-meta">
               <span class="arrow">||</span> 
               <time datetime="${year}-${month}-${day}">${day} ${month}, ${year}</time>
@@ -97,10 +92,19 @@ window.initBlog = function () {
             </div>
           </a>
         `;
-        blogList.appendChild(li);
+        blogList.appendChild(listItem);
       });
 
-      // Add category filters
+      // Clear existing filter items and reset with "All"
+      filterList.innerHTML = `<li class="filter-item">
+        <button class="active" data-filter-btn>All</button>
+      </li>`;
+
+      selectList.innerHTML = `<li class="select-item">
+        <button data-select-item>All</button>
+      </li>`;
+
+      // Add categories to the filter buttons and dropdown list
       categoriesSet.forEach(category => {
         const filterItem = document.createElement("li");
         filterItem.classList.add("filter-item");
@@ -113,34 +117,42 @@ window.initBlog = function () {
         selectList.appendChild(selectItem);
       });
 
-      const filterPosts = category => {
-        blogPage.querySelectorAll(".blog-post-item").forEach(post => {
-          const postCategories = post.dataset.category.split(" ");
-          post.style.display = category === "All" || postCategories.includes(category) ? "block" : "none";
+      // Function to filter posts
+      function filterPosts(category) {
+        document.querySelectorAll(".blog-post-item").forEach(post => {
+          const postCategories = post.getAttribute("data-category").split(" ");
+          if (category === "All" || postCategories.includes(category)) {
+            post.style.display = "block";
+          } else {
+            post.style.display = "none";
+          }
         });
-      };
+      }
 
-      // Filter button click
-      blogPage.querySelectorAll("[data-filter-btn]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const category = btn.textContent.trim();
-          blogPage.querySelectorAll("[data-filter-btn]").forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          filterPosts(category);
+      // Filtering logic for buttons
+      document.querySelectorAll("[data-filter-btn]").forEach(btn => {
+        btn.addEventListener("click", function () {
+          const selectedCategory = this.textContent.trim();
+
+          document.querySelectorAll("[data-filter-btn]").forEach(b => b.classList.remove("active"));
+          this.classList.add("active");
+
+          filterPosts(selectedCategory);
         });
       });
 
-      // Dropdown select click
-      blogPage.querySelectorAll("[data-select-item]").forEach(item => {
-        item.addEventListener("click", () => {
-          const category = item.textContent.trim();
-          selectValue.textContent = category;
-          filterPosts(category);
+      // Filtering logic for dropdown
+      document.querySelectorAll("[data-select-item]").forEach(item => {
+        item.addEventListener("click", function () {
+          const selectedCategory = this.textContent.trim();
+          selectValue.textContent = selectedCategory;
+
+          filterPosts(selectedCategory);
         });
       });
     })
     .catch(err => {
-      console.error("Error loading blog posts:", err);
-      blogList.innerHTML = `<li>Failed to load posts.</li>`;
+      console.error("Error fetching blog posts:", err);
+      blogList.innerHTML = "<li>Failed to load posts.</li>";
     });
 };

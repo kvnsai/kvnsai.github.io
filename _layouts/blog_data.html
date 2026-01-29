@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page.title | default: site.title }}</title>
+  <script>
+    // Redirect /blog.html to /#blog when accessed directly in browser
+    if (window.location.pathname === '/blog.html' || window.location.pathname === '/blog.html/') {
+      window.location.replace("/#blog");
+    }
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/#blog">
+  </noscript>
+</head>
+<body>
+  <!-- This content is fetched by JavaScript for blog post data -->
+  {{ content }}
+</body>
+</html>

@@ -63,5 +63,5 @@ just_the_docs:
     posts:
       name: "Blog Posts"       # Name shown in sidebar
       nav_exclude: false       # Include in sidebar navigation
-      nav_fold: false           # Collapse by default
+      nav_fold: true          # Collapse by default
       search_exclude: false    # Include in site search
