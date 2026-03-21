@@ -2065,6 +2065,11 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 }
 
+/* Hide TOC sidebar if empty (no headings) */
+#toc-sidebar .toc-nav:empty,
+#toc-sidebar .toc-list:empty {
+  display: none !important;
+}
 
 /*-----------------------------------*\
   #TOC SIDEBAR (Right sidebar for blog posts)
